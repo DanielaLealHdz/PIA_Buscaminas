@@ -1,12 +1,16 @@
 package com.backend;
 
-//Es el corazon de la interfaz, se construye la ventana y se conectan todos los elementos visuales con la lógica del juego
 import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
 //Swing es una biblioteca (un conjunto de herramientas) que Java nos ofrece para crear interfaces gráficas de usuario (GUIs).
 
+/**
+ * @apiNote Es la ventana pricnipal del juego, donde se muestra el tablero del Buscamians
+ * y se conecta toda la logica visual con la logica interna(TableroBuscaminas)
+ * representa la interfaz principal del juego, se llama desde PantallaInicio y BotonReiniciar
+ */
 public class VentanaPrincipal extends JFrame {
 
     private int filas ;       // Numero de filas del tablero
@@ -18,11 +22,10 @@ public class VentanaPrincipal extends JFrame {
     private boolean juegoTerminado = false;
     private Temporizador temporizador; //lleva cuenta del tiempo jugado
     private JLabel etiquetaTiempo; //etiquetas que se muestran en pantalla
-    private JLabel etiquetaBanderas;
-    private int banderasRestantes; //estados de juego para el usuario
+    private JLabel etiquetaBanderas; //etiqueta qu emuestra cuantas banderas quedan
+    private int banderasRestantes; // contador de banderas disponibles
     private int pistasDisponibles = 3;
     private JLabel etiquetaRacha; // Muestra la racha en el panel
-    private ContadorVictorias contadorVictorias = new ContadorVictorias();
 
     /**
      * @param filas //num de filas del tablero
@@ -42,9 +45,9 @@ public class VentanaPrincipal extends JFrame {
         this.setSize(700, 700); // Tamaño de la ventana
         this.setLocationRelativeTo(null); // Centrar la ventana
         this.setResizable(true); // Que se pueda cambiar el tamaño con el mouse
-        tablero = new TableroBuscaminas(filas, columnas, numMinas);
+        tablero = new TableroBuscaminas(filas, columnas, numMinas); //Llama a TableroBuscaminas donde se hace la parte logica
 
-        inicializarComponentes();
+        inicializarComponentes(); //llama a inicializarComponentes() para armar el tablero y los botones
         this.pack(); //se ajusta automaticamente el tamaño de la ventana para que se ajuste a los componentes que se añaden.
         this.setVisible(true); // Mostrar la ventana
     }
@@ -55,14 +58,17 @@ public class VentanaPrincipal extends JFrame {
      */
     private void inicializarComponentes() {
 
+        //Crea las etiquetas(tiempo,banderas,racha)
         etiquetaTiempo = new JLabel("⏱ Tiempo: 0s");
         etiquetaBanderas = new JLabel();
-        etiquetaRacha = Botones.crearEtiquetaRacha(0);
+        etiquetaRacha = Botones.crearEtiquetaRacha(0); //En la clase botones ya se crea su propia etiqueta
         ContadorVictorias.instancia.setEtiquetaVisual(etiquetaRacha);
         temporizador = new Temporizador(etiquetaTiempo);
+
         // Inicializar la matriz de botones
         botones = new JButton[filas][columnas];
 
+        //crea el tablero grafico, sus botones y lo añade al panel final
         JPanel panelTablero = TableroGrafico.crearTablero(filas, columnas, botones, tablero, this);
         JPanel panelFinal = Botones.crearPanelConBotonesYTablero(panelTablero, filas, columnas, numMinas, this, etiquetaTiempo, etiquetaBanderas,etiquetaRacha, botones, tablero);
         this.add(panelFinal);
@@ -70,6 +76,7 @@ public class VentanaPrincipal extends JFrame {
 
     /**
      * apiNote este metodo se llama una vez que pierdes, se muestran todas las bombas
+     * se llama desde TableroGrafico cuando pierdes
      */
     public void revelarTodasLasBombas() {
         for (int i = 0; i < filas; i++) {

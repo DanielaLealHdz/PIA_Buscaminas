@@ -5,10 +5,21 @@ import java.awt.*;
 import javax.sound.sampled.*;
 import java.io.File;
 
+/**
+ * @apiNote esta clase se centra en cargar y escalar las imagenes y la reproduccion de sonidos
+ */
 public class ImagenesYAudios {
 
-    // ----------------------- IMÁGENES -----------------------
+    // IMÁGENES
 
+    /**
+     * @param ruta //ubicacion de la imagen
+     * @param ancho // dimensiones deseadas
+     * @param alto //dimensiones deseadas
+     * @apiNote Se carga una imagen, la redimensiona y devuelve la imagen en forma de ImageIcon
+     * se reutiliza en getIconoBomba, getIconoBandera, getIconoReiniciar, getIconoHome
+     * y se usa en TableroGrafico(banderas y bombas) y Botones(iconos de reinicio y home)
+     */
     public static ImageIcon cargarImagenEscalada(String ruta, int ancho, int alto) {
         ImageIcon iconoOriginal = new ImageIcon(ruta);
         Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
@@ -32,8 +43,14 @@ public class ImagenesYAudios {
     }
 
 
-    // ----------------------- AUDIOS -----------------------
+    // AUDIOS
 
+    /**
+     * @param ruta //direccion del archivo .wav
+     * @apiNote se encarga de abrir el archivo, crear un clip y lo reproduce
+     * lo usan reproducirSonidoExplosion, reproducirSonidoVictoria y reproducirSonidoDerrota
+     * se usan en TableroGrafico y MensajesJuego
+     */
     public static void reproducirSonido(String ruta) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(ruta).getAbsoluteFile());

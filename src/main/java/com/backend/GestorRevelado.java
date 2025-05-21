@@ -3,6 +3,11 @@ package com.backend;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @apiNote Esta clase coordina la revelacion de casillas en el tablero cuando haces clic en
+ * una casilla que no tiene minas al rededor.
+ * Tiene dos funciones principales: RevelarCasillas(efecto domino) y verificarVictoria(evalua si se ha ganado)
+ */
 public class GestorRevelado {
     //Esta clase no necesita atributos porque simplemente coordina acciones en otras clases
 
@@ -14,8 +19,8 @@ public class GestorRevelado {
      * @param ventana //ventana para acceder a metodos como victoria y temporizador
      * @param temporizador //referencia para detener el tiempo
      * @apiNote este metodo simula el efecto domino del buscaminas, cuando das clic en una casilla que no tiene minas al rededor
-     * automaticamente se revelan las vecinas vacias. Este metodo se llama en TableroGrafico cuando haces el primer clic
-     *
+     * automaticamente se revelan las vecinas vacias. Este metodo se llama en TableroGrafico cuando haces el primer clic,
+     * o cuando descubres una casilla con 0 minas al rededor
      */
     public void revelarCasillas(int fila, int columna, JButton[][] botones, TableroBuscaminas tablero, VentanaPrincipal ventana, Temporizador temporizador){
 
@@ -39,8 +44,6 @@ public class GestorRevelado {
         if(minas > 0){
             JButton boton = botones[fila][columna];
             boton.setText(String.valueOf(minas));
-            //boton.setForeground(Color.BLACK);
-            boton.setEnabled(false);
             boton.setFont(new Font("Arial", Font.BOLD, 18));
             boton.setBackground(Color.LIGHT_GRAY);
             verificarVictoria(botones, tablero, ventana, temporizador);
@@ -67,11 +70,13 @@ public class GestorRevelado {
     }
 
     /**
-     * @param botones
-     * @param tablero
-     * @param ventana
-     * @param temporizador
-     * @apiNote evalua si todas las casillas que no son minas ya fueron reveladas y si si despliega un mensaje de victroia
+     * @param botones //para contar y manipular visuales
+     * @param tablero //contiene la logica de minas y revelaciones
+     * @param ventana //para verificar si ya termino el juego
+     * @param temporizador //para detenerlo al ganar
+     * @apiNote evalua si todas las casillas que no son minas ya fueron reveladas lo hace recorriendo
+     * todas las casillas y cuenta el total de casillas que no tienen mina
+     * y cuantas de esas ya fueron reveladas si ambos valores coinciden se despliega un mensaje de victroia
      * llamando a MostrarMensajeVictoria
      */
     public void verificarVictoria(JButton[][] botones, TableroBuscaminas tablero, VentanaPrincipal ventana, Temporizador temporizador) {

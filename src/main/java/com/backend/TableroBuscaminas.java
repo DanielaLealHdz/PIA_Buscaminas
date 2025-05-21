@@ -2,6 +2,9 @@ package com.backend;
 
 import java.util.*;
 
+/**
+ * @apiNote Creo que esta es mi clase favorita, se encarga de guardar todas las casillas,
+ * asegurar la zona, colocar las minas, calcula cuantas minas hay alrededor de cada casilla y devuelve vecinas*/
 public class TableroBuscaminas {
     Casilla[][] casillas; //matriz en donde estan las casillas
 
@@ -16,6 +19,7 @@ public class TableroBuscaminas {
      * @param numMinas
      * @apiNote Este simplemente es el constructor y llama al metodo inicializar casillas,
      * necesita saber cuántas casillas crear lógicamente, y dónde poner las minas.
+     * Se llama desde VentanaPrincipal
      */
     public TableroBuscaminas(int numFilas, int numColumnas, int numMinas) {
         this.numFilas = numFilas;
@@ -43,6 +47,7 @@ public class TableroBuscaminas {
      * @apiNote Cuando el jugador hace su primer clic, queremos asegurarnos de que no caiga en una mina.
      * Pero además, este código crea una zona segura expandida; un grupo de casillas conectadas que no tienen minas,
      * y que pueden ser reveladas sin peligro. Devuelve un Set<Casilla> con todas esas casillas seguras seleccionadas.
+     * Se llama desde TableroGrafico en primer clic
      */
     public Set<Casilla> generarZonaSeguraExpandida(int filaInicial, int columnaInicial, int cantidadCasillasSeguras) {
         Set<Casilla> zonaSegura = new HashSet<>(); //casillas que formaran la zona segura sin duplicados
@@ -77,6 +82,7 @@ public class TableroBuscaminas {
      * @param zonaSegura //set con las casillas que ya estan seguras
      * @apiNote Este metodo lo que hace es generar las minas ya tomando en cuenta que no pueden estar en la zona segura,
      * y al finalizar de poner las minas llama al metodo para actualizar el numero de las casillas al rededor de las minas.
+     * Se llama desde TableroGrafico despues de crear la zona segura en el primer clic
      */
     public void generarMinasConZonaSegura(Set<Casilla> zonaSegura) {
         int minasGeneradas = 0;

@@ -3,8 +3,23 @@ package com.backend;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @apiNote crea los botones de control de juego, crea la etiqueta visual,
+ * construye y devuelve un panel ocmpleto superiror e inferiror del huego, junto con el tablero
+ * sirve para organizar visualmente los elementos que rodean al tablero de juego
+ */
 public class Botones {
 
+    /**
+     * @param filas
+     * @param columnas
+     * @param numMinas
+     * @param ventanaActual
+     * @apiNote Al hacer clic reinicia la racha, cierra la ventana catual y crea una nueva ventana principak
+     * con los mismos parametros
+     * se usa en crearPanelconbotonesytablero
+     * @return
+     */
     public static JButton crearBotonReiniciar(int filas, int columnas, int numMinas, JFrame ventanaActual) {
         JButton btnReiniciar = new JButton();
 
@@ -24,6 +39,12 @@ public class Botones {
         return btnReiniciar;
     }
 
+    /**
+     * @param ventanaActual
+     * @apiNote al hacer clic reinicia la racha, cierra la ventana actual y crea una nueva instancia de PantallaInicio
+     * se usa en crearPpanelConBotonesYTablero
+     * @return
+     */
     public static JButton crearBotonHome(JFrame ventanaActual) {
         JButton btnHome = new JButton();
 
@@ -37,6 +58,12 @@ public class Botones {
         return btnHome;
     }
 
+    /**
+     * @param rachaInicial
+     * @apiNote crea y retorna un JLabel con texto de las rachas
+     * se llama desde VentanaPrincipal y luego se la pasa a ContadorVictorias
+     * @return
+     */
     public static JLabel crearEtiquetaRacha(int rachaInicial) {
         JLabel etiquetaRacha = new JLabel("🔥 Racha: " + rachaInicial); // *** NUEVO
         etiquetaRacha.setFont(new Font("Segoe UI Emoji", Font.BOLD, 14)); // *** NUEVO
@@ -44,6 +71,22 @@ public class Botones {
         return etiquetaRacha; // *** NUEVO
     }
 
+    /**
+     * @param panelTablero
+     * @param filas
+     * @param columnas
+     * @param numMinas
+     * @param ventanaActual
+     * @param etiquetaTiempo
+     * @param etiquetaBanderas
+     * @param etiquetaRacha
+     * @param botones
+     * @param tablero
+     * @apiNote este es el metodo mas importante, crea y organiza todos los elementos graficos
+     * se combinan con panelTablero y se devuelven como un solo JPanel general
+     * se llama desde VentanaPricnipal.inicializarComponentes
+     * @return
+     */
     public static JPanel crearPanelConBotonesYTablero(JPanel panelTablero, int filas, int columnas, int numMinas, VentanaPrincipal ventanaActual, JLabel etiquetaTiempo, JLabel etiquetaBanderas, JLabel etiquetaRacha,  JButton[][] botones, TableroBuscaminas tablero) {
         // Contenedor vertical que agrupará tablero + botones
         JPanel panelContenedor = new JPanel(new BorderLayout());
@@ -57,9 +100,9 @@ public class Botones {
         JButton btnReiniciar = crearBotonReiniciar(filas, columnas, numMinas, ventanaActual);
         JButton btnHome = crearBotonHome(ventanaActual);
         btnHome.addActionListener(e -> {
-            ContadorVictorias.instancia.reiniciar(); // reinicia la racha también
+            ContadorVictorias.instancia.reiniciar(); // reinicia la racha tambien
             ventanaActual.dispose(); // cerrar la ventana actual
-            new PantallaInicio(); // ← reemplaza esto con el nombre de tu clase de pantalla inicial
+            new PantallaInicio();
         });
 
         panelSuperior.add(btnHome);

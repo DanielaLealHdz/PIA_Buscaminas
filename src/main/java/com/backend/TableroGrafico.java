@@ -1,20 +1,27 @@
 package com.backend;
 
-// Clase que se encarga de construir y manejar el tablero gráfico (los botones y su comportamiento)
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Set;
 
+/**+
+ * @apiNote Esta clase crea visualmente el tablero de juego y asigna eventos a cada boton
+ * , conecta la interfaz con la logica del juego
+ */
 public class TableroGrafico {
 
     /**
      * @param filas //num de filas del tablero
      * @param columnas //num de columnas del tablero
      * @param botones //matriz de botones que representa visualmente las casillas
-     * @param tablero //logica del juego(minas,casillas)
+     * @param tablero //logica del juego(minas,casillas, zona segura)
      * @param ventana //ventana principal para actualizar info como tiempo y banderas
+     * @apiNote Este metodo crea un JPanel con layout de cuadricula, genera un boton por casilla y lo agrega al panel,
+     * maneja el clic derecho e izq, usa GestorRevelado para revelar casillas
+     * Devuelve el panelTablero creado
+     * Se llama desde VentanaPrincipal en inicializarComponentes()
      * @return
      */
     public static JPanel crearTablero(int filas, int columnas, JButton[][] botones, TableroBuscaminas tablero, VentanaPrincipal ventana) {
@@ -69,19 +76,20 @@ public class TableroGrafico {
 
                             //si es el primer clic
                             if (ventana.esPrimerClic()) {
+                                //hacemos una zona segura
                                 Set<Casilla> zonaSegura = tablero.generarZonaSeguraExpandida(fila, columna, 6);
                                 tablero.generarMinasConZonaSegura(zonaSegura);
                                 ventana.setPrimerClic(false);
                                 ventana.iniciarTemporizador();
 
+                                //si es el primer clic entonces vamos a revelar un area segura al rededor
                                 for (Casilla segura : zonaSegura) {
                                     gestor.revelarCasillas(segura.getPosFila(), segura.getPosColumna(), botones, tablero, ventana, ventana.getTemporizador() );
                                 }
                             } else {
-                                //si no es una mina y es el primer clic
+                                //si es una mina explota todp
                                 if (casilla.isMina()) {
                                     botones[fila][columna].setIcon(ImagenesYAudios.getIconoBomba());
-                                    botones[fila][columna].setText(null);
                                     ImagenesYAudios.reproducirSonidoExplosion();
                                     ventana.revelarTodasLasBombas();
                                     ventana.desactivarTablero();
@@ -89,6 +97,7 @@ public class TableroGrafico {
                                     ContadorVictorias.instancia.reiniciar();
                                     MensajesJuego.mostrarMensajeDerrota(ventana, filas, columnas, tablero.numMinas);
                                 }
+                                //si no es una mina entonces vamos a revelar la casilla y sus vecinas si son seguras
                                 gestor.revelarCasillas(fila, columna, botones, tablero, ventana, ventana.getTemporizador() );
                             }
                         }
