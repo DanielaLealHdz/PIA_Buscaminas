@@ -21,6 +21,8 @@ public class VentanaPrincipal extends JFrame {
     private JLabel etiquetaBanderas;
     private int banderasRestantes; //estados de juego para el usuario
     private int pistasDisponibles = 3;
+    private JLabel etiquetaRacha; // Muestra la racha en el panel
+    private ContadorVictorias contadorVictorias = new ContadorVictorias();
 
     /**
      * @param filas //num de filas del tablero
@@ -55,12 +57,14 @@ public class VentanaPrincipal extends JFrame {
 
         etiquetaTiempo = new JLabel("⏱ Tiempo: 0s");
         etiquetaBanderas = new JLabel();
+        etiquetaRacha = Botones.crearEtiquetaRacha(0);
+        ContadorVictorias.instancia.setEtiquetaVisual(etiquetaRacha);
         temporizador = new Temporizador(etiquetaTiempo);
         // Inicializar la matriz de botones
         botones = new JButton[filas][columnas];
 
         JPanel panelTablero = TableroGrafico.crearTablero(filas, columnas, botones, tablero, this);
-        JPanel panelFinal = Botones.crearPanelConBotonesYTablero(panelTablero, filas, columnas, numMinas, this, etiquetaTiempo, etiquetaBanderas, botones, tablero);
+        JPanel panelFinal = Botones.crearPanelConBotonesYTablero(panelTablero, filas, columnas, numMinas, this, etiquetaTiempo, etiquetaBanderas,etiquetaRacha, botones, tablero);
         this.add(panelFinal);
     }
 

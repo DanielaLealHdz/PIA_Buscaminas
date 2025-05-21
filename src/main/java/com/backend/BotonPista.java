@@ -11,7 +11,7 @@ public class BotonPista {
     public static JButton crearBotonPista(JButton[][] botones, TableroBuscaminas tablero, JLabel etiquetaBanderas, VentanaPrincipal ventana) {
         JButton btnPista = new JButton("💡 Pista (3)");
         btnPista.setFocusPainted(false);
-        btnPista.setFont(new Font("Arial", Font.BOLD, 14));
+        btnPista.setFont(new Font("Segoe UI Emoji", Font.BOLD, 14));
         btnPista.setBackground(new Color(210, 240, 255));
 
         btnPista.addActionListener((ActionEvent e) -> {

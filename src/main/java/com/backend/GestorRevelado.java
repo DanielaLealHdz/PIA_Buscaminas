@@ -37,11 +37,12 @@ public class GestorRevelado {
 
         //si hay 1 o mas minas cerca se muestra ese numero pero no se revelan vecinos por riesgo
         if(minas > 0){
-            botones[fila][columna].setText(String.valueOf(minas));
-            botones[fila][columna].setEnabled(false);
-            botones[fila][columna].setFont(new Font("Arial", Font.BOLD, 18));
-            botones[fila][columna].setForeground(Color.BLACK);
-            botones[fila][columna].setBackground(Color.LIGHT_GRAY);
+            JButton boton = botones[fila][columna];
+            boton.setText(String.valueOf(minas));
+            //boton.setForeground(Color.BLACK);
+            boton.setEnabled(false);
+            boton.setFont(new Font("Arial", Font.BOLD, 18));
+            boton.setBackground(Color.LIGHT_GRAY);
             verificarVictoria(botones, tablero, ventana, temporizador);
             return;
         }else{
@@ -99,6 +100,7 @@ public class GestorRevelado {
             ventana.setJuegoTerminado(true);
             ventana.desactivarTablero();
             temporizador.detener();
+            ContadorVictorias.instancia.incrementar();
             MensajesJuego.mostrarMensajeVictoria(ventana, filas, columnas, tablero.getNumMinas());
         }
     }

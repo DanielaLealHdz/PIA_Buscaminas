@@ -16,6 +16,7 @@ public class Botones {
         btnReiniciar.setToolTipText("Reiniciar juego");
 
         btnReiniciar.addActionListener(e -> {
+            ContadorVictorias.instancia.reiniciar();
             ventanaActual.dispose(); // Cierra la ventana actual
             new VentanaPrincipal(filas, columnas, numMinas); // Reinicia con los mismos parámetros
         });
@@ -36,7 +37,14 @@ public class Botones {
         return btnHome;
     }
 
-    public static JPanel crearPanelConBotonesYTablero(JPanel panelTablero, int filas, int columnas, int numMinas, VentanaPrincipal ventanaActual, JLabel etiquetaTiempo, JLabel etiquetaBanderas,  JButton[][] botones, TableroBuscaminas tablero) {
+    public static JLabel crearEtiquetaRacha(int rachaInicial) {
+        JLabel etiquetaRacha = new JLabel("🔥 Racha: " + rachaInicial); // *** NUEVO
+        etiquetaRacha.setFont(new Font("Segoe UI Emoji", Font.BOLD, 14)); // *** NUEVO
+        etiquetaRacha.setForeground(Color.BLACK); // *** NUEVO
+        return etiquetaRacha; // *** NUEVO
+    }
+
+    public static JPanel crearPanelConBotonesYTablero(JPanel panelTablero, int filas, int columnas, int numMinas, VentanaPrincipal ventanaActual, JLabel etiquetaTiempo, JLabel etiquetaBanderas, JLabel etiquetaRacha,  JButton[][] botones, TableroBuscaminas tablero) {
         // Contenedor vertical que agrupará tablero + botones
         JPanel panelContenedor = new JPanel(new BorderLayout());
 
@@ -47,7 +55,17 @@ public class Botones {
 
         // Botón reiniciar
         JButton btnReiniciar = crearBotonReiniciar(filas, columnas, numMinas, ventanaActual);
+        JButton btnHome = crearBotonHome(ventanaActual);
+        btnHome.addActionListener(e -> {
+            ContadorVictorias.instancia.reiniciar(); // reinicia la racha también
+            ventanaActual.dispose(); // cerrar la ventana actual
+            new PantallaInicio(); // ← reemplaza esto con el nombre de tu clase de pantalla inicial
+        });
 
+        panelSuperior.add(btnHome);
+        panelSuperior.add(Box.createHorizontalStrut(10));
+        panelSuperior.add(etiquetaRacha);
+        panelSuperior.add(Box.createHorizontalStrut(10));
         panelSuperior.add(etiquetaTiempo);
         panelSuperior.add(Box.createHorizontalStrut(10));
         panelSuperior.add(btnReiniciar);
