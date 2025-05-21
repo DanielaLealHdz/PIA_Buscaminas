@@ -66,8 +66,6 @@ public class TableroGrafico {
                                 }
                             }
 
-                            //actualizamos la etiqueta de banderas en la ventana principal para que se actualice la cantidad de banderas restantes
-                            ventana.actualizarEtiquetaBanderas();
 
                             //si es clic izquierdo
                         } else if (SwingUtilities.isLeftMouseButton(e)) {

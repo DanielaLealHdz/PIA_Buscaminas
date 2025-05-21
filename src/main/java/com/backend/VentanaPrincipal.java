@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
-//Swing es una biblioteca (un conjunto de herramientas) que Java nos ofrece para crear interfaces gráficas de usuario (GUIs).
+//Swing es una biblioteca (un conjunto de herramientas) que Java nos ofrece para crear interfaces gráficas de usuario
 
 /**
  * @apiNote Es la ventana pricnipal del juego, donde se muestra el tablero del Buscamians
@@ -22,8 +22,7 @@ public class VentanaPrincipal extends JFrame {
     private boolean juegoTerminado = false;
     private Temporizador temporizador; //lleva cuenta del tiempo jugado
     private JLabel etiquetaTiempo; //etiquetas que se muestran en pantalla
-    private JLabel etiquetaBanderas; //etiqueta qu emuestra cuantas banderas quedan
-    private int banderasRestantes; // contador de banderas disponibles
+    private ContadorBanderas contadorBanderas;
     private int pistasDisponibles = 3;
     private JLabel etiquetaRacha; // Muestra la racha en el panel
 
@@ -39,7 +38,6 @@ public class VentanaPrincipal extends JFrame {
         this.filas = filas;
         this.columnas = columnas;
         this.numMinas = numMinas;
-        this.banderasRestantes = numMinas; // esto es para el contador de las banderas restantes
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Indica que cuando cierres la ventana, el programa también debe cerrarse por completo. Si no lo pones, el programa seguiría corriendo en segundo plano.
         this.setSize(700, 700); // Tamaño de la ventana
@@ -60,10 +58,11 @@ public class VentanaPrincipal extends JFrame {
 
         //Crea las etiquetas(tiempo,banderas,racha)
         etiquetaTiempo = new JLabel("⏱ Tiempo: 0s");
-        etiquetaBanderas = new JLabel();
+        temporizador = new Temporizador(etiquetaTiempo);
+        contadorBanderas = new ContadorBanderas(numMinas);
+        JLabel etiquetaBanderas = contadorBanderas.getEtiqueta();
         etiquetaRacha = Botones.crearEtiquetaRacha(0); //En la clase botones ya se crea su propia etiqueta
         ContadorVictorias.instancia.setEtiquetaVisual(etiquetaRacha);
-        temporizador = new Temporizador(etiquetaTiempo);
 
         // Inicializar la matriz de botones
         botones = new JButton[filas][columnas];
@@ -131,19 +130,15 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void incrementarBanderas() {
-        banderasRestantes++;
+        contadorBanderas.incrementar();
     }
 
     public void decrementarBanderas() {
-        banderasRestantes--;
+        contadorBanderas.decrementar();
     }
 
     public int getBanderasRestantes() {
-        return banderasRestantes;
-    }
-
-    public void actualizarEtiquetaBanderas() {
-        etiquetaBanderas.setText("🚩 Banderas: " + banderasRestantes);
+        return contadorBanderas.getBanderasRestantes();
     }
 
     /**
