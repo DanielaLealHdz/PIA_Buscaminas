@@ -19,4 +19,11 @@ public class ContadorVictoriasTest {
         contador.reiniciar();
         assertEquals(0, contador.getRachaActual());
     }
+
+    //aseguramos que inicie en 0
+    @Test
+    public void testContadorVictoriasIniciaEnCero() {
+        ContadorVictorias c = new ContadorVictorias();
+        assertEquals(0, c.getRachaActual());
+    }
 }

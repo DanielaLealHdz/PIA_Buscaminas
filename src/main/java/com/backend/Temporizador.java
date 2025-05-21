@@ -46,5 +46,14 @@ public class Temporizador extends Thread {
         activo = false;
     }
 
+    public int getSegundos() {
+        return segundos;
+    }
+
+    public void reiniciar() {
+        segundos = 0;
+        etiqueta.setText("⏱ Tiempo: 0s");
+    }
+
 }
 

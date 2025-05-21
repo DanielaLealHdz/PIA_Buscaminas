@@ -106,7 +106,7 @@ public class TableroBuscaminas {
      * si la casilla es mina, en ese caso vamos a recorrer todas las casillas alrededor de esa casilla (obtenerCasillasAlrededor)
      * y incrementar el numero de la casilla al rededor(incrementarNumeroMinasAlrededor).
      */
-    private void actualizarNumMinasAlrededor(){
+    void actualizarNumMinasAlrededor(){
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
                 if (casillas[i][j].isMina()){

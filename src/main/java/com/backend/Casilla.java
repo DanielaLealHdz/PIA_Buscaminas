@@ -62,5 +62,9 @@ public class Casilla {
     public void setRevelada() {
         this.revelada = true;
     }
+
+    public void setRevelada(boolean valor) {
+        this.revelada = valor;
+    }
 }
 
