@@ -8,8 +8,10 @@ import org.junit.jupiter.api.Test;
 
 public class GestorReveladoTest {
 
-    //Este test simula un tablero sin minas, revela todas las casillas y
-    //verifica que se active la condicion de victoria
+    /**
+     * @apiNote Este test simula un tablero sin minas, revela todas las casillas y
+     * verifica que se active la condicion de victoria
+     */
     @Test
     public void testVerificarVictoriaCuandoTodoRevelado() {
         int filas = 3;
@@ -31,11 +33,13 @@ public class GestorReveladoTest {
 
         gestor.verificarVictoria(botones, tablero, ventana, temporizador);
 
-        assertTrue(ventana.isJuegoTerminado(), "El juego deberaa estar terminado (ganado) si todas las casillas sin mina estan reveladas");
+        assertTrue(ventana.isJuegoTerminado(), "El juego deberia estar terminado si todas las casillas sin mina estan reveladas");
     }
 
-    //no detecta victoria si falta una casilla sin mina por revelar
-    //la bandera juegotermiando funciona bien solo si se revelan todas las casillas no-mina
+    /**
+     * @apiNote Este test no detecta victoria si falta una casilla sin mina por revelar,
+     * la bandera juegotermiando funciona bien solo si se revelan todas las casillas no-mina
+     */
     @Test
     public void testNoHayVictoriaSiFaltaUnaCasillaSinRevelar() {
         int filas = 3;
@@ -62,7 +66,9 @@ public class GestorReveladoTest {
         assertFalse(ventana.isJuegoTerminado(), "El juego no debe estar ganado si al menos una casilla sin mina no ha sido revelada");
     }
 
-    //este test verifica que al revelar una casilla sin mina y sin minas alrededor se revela un area vacia alrededor automaticamente
+    /**
+     * @apiNote Este test verifica que al revelar una casilla sin mina y sin minas alrededor se revela un area vacia alrededor automaticamente
+     */
     @Test
     public void testExpansionDesdeCasillaVacia() {
         TableroBuscaminas tablero = new TableroBuscaminas(3, 3, 0);
@@ -93,7 +99,9 @@ public class GestorReveladoTest {
         assertEquals(9, reveladas); // Todas las casillas deberian haberse revelado
     }
 
-    //en este test probamos que una casilla con minas alrededor no expanda a las casillas vecinas
+    /**
+     * @apiNote Este test probamos que una casilla con minas alrededor no expanda a las casillas vecinas
+     */
     @Test
     public void testNoExpandirDesdeCasillaConNumero() {
         TableroBuscaminas tablero = new TableroBuscaminas(3, 3, 0);

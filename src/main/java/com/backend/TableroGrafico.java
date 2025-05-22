@@ -92,6 +92,7 @@ public class TableroGrafico {
                                     ventana.revelarTodasLasBombas();
                                     ventana.desactivarTablero();
                                     ventana.detenerTemporizador();
+                                    ventana.setJuegoTerminado(true);
                                     ContadorVictorias.instancia.reiniciar();
                                     MensajesJuego.mostrarMensajeDerrota(ventana, filas, columnas, tablero.numMinas);
                                 }

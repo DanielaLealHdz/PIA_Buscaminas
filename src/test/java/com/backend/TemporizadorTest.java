@@ -6,7 +6,10 @@ import javax.swing.JLabel;
 
 public class TemporizadorTest {
 
-    //este test verifica que el temporizador incrementa segundos correctamente mientras corre
+    /**
+     * @apiNote verifica que el temporizador incrementa segundos correctamente mientras corre
+     * @throws InterruptedException
+     */
     @Test
     public void testTemporizadorCuentaCorrectamente() throws InterruptedException {
         JLabel etiqueta = new JLabel();
@@ -20,6 +23,9 @@ public class TemporizadorTest {
         assertTrue(segundos >= 1, "El temporizador debe haber contado al menos 1 segundo");
     }
 
+    /**
+     * @apiNote verifica que el temporizador se reinicie correctamente
+     */
     @Test
     public void testTemporizadorReinicia() {
         JLabel etiqueta = new JLabel();
@@ -30,7 +36,9 @@ public class TemporizadorTest {
         assertEquals("⏱ Tiempo: 0s", etiqueta.getText());
     }
 
-    //temporizador devuelve 0 seg al iniciar
+    /**
+     * @apiNote verifica que el temporizador empiece en 0 segundos al crearlo
+     */
     @Test
     public void testTemporizadorIniciaEnCero() {
         Temporizador t = new Temporizador(new JLabel());

@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 
 public class BotonTest {
 
-    //probamos que crearBotonReiniciar no es null y tiene tooltip
+    /**
+     * apiNote verifica que se crea un boton de reiniciar con el tooltip "Reiniciar juego"
+     */
     @Test
     public void testCrearBotonReiniciar() {
         JButton boton = Botones.crearBotonReiniciar(8, 8, 10, new JFrame());

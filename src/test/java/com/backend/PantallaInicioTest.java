@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 
 public class PantallaInicioTest {
 
-    //se encarga de que se construya y enseñe la pantalla correctamente
+    /**
+     * @apiNote verifica que se crea la pantalla de inicio y que se muestra correctamente
+     */
     @Test
     public void testPantallaInicioSeConstruye() {
         PantallaInicio inicio = new PantallaInicio();

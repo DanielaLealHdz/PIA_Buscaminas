@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 
 public class ContadorVictoriasTest {
 
+    /**
+     * @apiNote verifica que el contador victorias se incremente correctamente
+     */
     @Test
     public void testIncrementar() {
         ContadorVictorias contador = new ContadorVictorias();
@@ -12,6 +15,9 @@ public class ContadorVictoriasTest {
         assertEquals(1, contador.getRachaActual());
     }
 
+    /**
+     * @apiNote verifica que el contador victorias se decremente correctamente
+     */
     @Test
     public void testReiniciar() {
         ContadorVictorias contador = new ContadorVictorias();
@@ -20,7 +26,9 @@ public class ContadorVictoriasTest {
         assertEquals(0, contador.getRachaActual());
     }
 
-    //aseguramos que inicie en 0
+    /**
+     * @apiNote verifica que el contador victorias inicia en 0 cuando se crea una instancia
+     */
     @Test
     public void testContadorVictoriasIniciaEnCero() {
         ContadorVictorias c = new ContadorVictorias();
